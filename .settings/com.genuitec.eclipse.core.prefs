@@ -1,0 +1,3 @@
+eclipse.preferences.version=1
+validator.Checked=src/db.xml,src/com/czr/frame/hbms
+validator.Unchecked=

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.czr.frame.beans.NoteBook" table="T_NOTE_BOOK">
+        <comment>T_NOTE_BOOK</comment>
+        <id name="objId" type="java.lang.Long">
+            <column name="OBJ_ID" precision="16" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_OBJ_ID</param>
+            </generator>
+        </id>
+         <property name="tTObjId" type="java.util.Long">
+            <column name="T_T_OBJ_ID" length="">
+                <comment>ID主键</comment>
+            </column>
+        </property>
+         <property name="title" type="java.lang.String">
+            <column name="TITLE" length="">
+                <comment>标题</comment>
+            </column>
+        </property>
+         <property name="content" type="java.lang.String">
+            <column name="CONTENT" length="">
+                <comment>内容</comment>
+            </column>
+        </property>
+         <property name="createtime" type="java.util.Date">
+            <column name="CREATETIME" length="">
+                <comment>创建时间</comment>
+            </column>
+        </property>
+         <property name="updatetime" type="java.util.Date">
+            <column name="UPDATETIME" length="">
+                <comment>更新时间</comment>
+            </column>
+        </property>
+         <property name="jm" type="java.util.Long">
+            <column name="JM" length="">
+                <comment>1=加密 0=不加密</comment>
+            </column>
+        </property>
+         <property name="attobjid" type="java.util.Long">
+            <column name="ATTOBJID" length="">
+                <comment>附件objid</comment>
+            </column>
+        </property>
+         <property name="zt" type="java.util.Long">
+            <column name="ZT" length="">
+                <comment>状态 1=正常 0=删除</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.czr.frame.beans.Noteinfo" table="T_NOTEINFO">
+        <comment>T_NOTEINFO</comment>
+        <id name="objId" type="java.lang.Long">
+            <column name="OBJ_ID" precision="16" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_OBJ_ID</param>
+            </generator>
+        </id>
+         <property name="objId" type="java.util.Long">
+            <column name="OBJ_ID" length="">
+                <comment></comment>
+            </column>
+        </property>
+         <property name="title" type="java.lang.String">
+            <column name="TITLE" length="">
+                <comment></comment>
+            </column>
+        </property>
+         <property name="tag" type="java.lang.String">
+            <column name="TAG" length="">
+                <comment></comment>
+            </column>
+        </property>
+         <property name="leve" type="java.util.Long">
+            <column name="LEVE" length="">
+                <comment></comment>
+            </column>
+        </property>
+         <property name="createtime" type="java.util.Date">
+            <column name="CREATETIME" length="">
+                <comment></comment>
+            </column>
+        </property>
+         <property name="updatetime" type="java.util.Date">
+            <column name="UPDATETIME" length="">
+                <comment></comment>
+            </column>
+        </property>
+         <property name="content" type="java.lang.String">
+            <column name="CONTENT" length="">
+                <comment></comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>
