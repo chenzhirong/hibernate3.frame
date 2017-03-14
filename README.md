@@ -1,0 +1,1 @@
+##hibernate3 + spring 框架整合
