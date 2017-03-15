@@ -1,74 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
-	
-	<!-- 配置c3p0连接池 -->  
-    　<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close"> 
-　　<property name="driverClass"><value>oracle.jdbc.driver.OracleDriver</value></property> 
-　　<property name="jdbcUrl"><value>jdbc:oracle:thin:@localhost:1521:orcl</value></property> 
-　　<property name="user"><value>czr</value></property> 
-　　<property name="password"><value>czr</value></property> 
-　　<!--连接池中保留的最小连接数。--> 
-　　<property name="minPoolSize" value="10" /> 
-　　<!--连接池中保留的最大连接数。Default: 15 --> 
-　　<property name="maxPoolSize" value="100" /> 
-　　<!--最大空闲时间,1800秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 --> 
-　　<property name="maxIdleTime" value="1800" /> 
-　　<!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 --> 
-　　<property name="acquireIncrement" value="3" /> 
-　　<property name="maxStatements" value="1000" /> 
-　　<property name="initialPoolSize" value="10" /> 
-　　<!--每60秒检查所有连接池中的空闲连接。Default: 0 --> 
-　　<property name="idleConnectionTestPeriod" value="60" /> 
-　　<!--定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 --> 
-　　<property name="acquireRetryAttempts" value="30" /> 
-　　<property name="breakAfterAcquireFailure" value="true" /> 
-　　<property name="testConnectionOnCheckout" value="false" /> 
-　　</bean>
 
-	<!-- 配置SessionFactory -->  
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">  
-      <property name="dataSource" ref="dataSource" />  
-      <property name="mappingLocations">
+	<!-- 配置c3p0连接池 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+		</property>
+		<property name="jdbcUrl">
+			<value>jdbc:oracle:thin:@localhost:1521:orcl</value>
+		</property>
+		<property name="user">
+			<value>czr</value>
+		</property>
+		<property name="password">
+			<value>czr</value>
+		</property>
+		<!--连接池中保留的最小连接数。 -->
+		<property name="minPoolSize" value="10" />
+		<!--连接池中保留的最大连接数。Default: 15 -->
+		<property name="maxPoolSize" value="100" />
+		<!--最大空闲时间,1800秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 -->
+		<property name="maxIdleTime" value="1800" />
+		<!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 -->
+		<property name="acquireIncrement" value="3" />
+		<property name="maxStatements" value="1000" />
+		<property name="initialPoolSize" value="10" />
+		<!--每60秒检查所有连接池中的空闲连接。Default: 0 -->
+		<property name="idleConnectionTestPeriod" value="60" />
+		<!--定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 -->
+		<property name="acquireRetryAttempts" value="30" />
+		<property name="breakAfterAcquireFailure" value="true" />
+		<property name="testConnectionOnCheckout" value="false" />
+	</bean>
+
+	<!-- 配置SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mappingLocations">
 			<list>
 				<value>classpath*:/com/czr/frame/hbms/user.hbm.xml</value>
 			</list>
-	</property>
-      <property name="hibernateProperties"> 
-        <props>  
-                <prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
-                <prop key="hibernate.hbm2ddl.auto">none</prop>  
-                <prop key="hibernate.show_sql">true</prop>  
-                <prop key="hibernate.format_sql">true</prop>  
-                <prop key="hibernate.use_sql_comments">true</prop>  
-                <!-- 提交事务 -->
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">none</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.use_sql_comments">true</prop>
+				<!-- 提交事务 -->
 				<prop key="hibernate.connection.autocommit">true</prop>
 				<prop key="hibernate.connection.release_mode">auto</prop>
 				<prop key="hibernate.connection.SetBigStringTryClob">true</prop>
-            </props>  
-      </property>  
-    </bean>  
-	
+			</props>
+		</property>
+	</bean>
+
 	<!-- 使用Spring提供的Hibernate数据访问对象操作模板类并注入对应的会话工厂 -->
 	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 
 
-	<!-- 定义事务管理器，使用适用于Hibernte的事务管理器并指定使用的会话工厂-->
+	<!-- 定义事务管理器，使用适用于Hibernte的事务管理器并指定使用的会话工厂 -->
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-	
-	<!-- 配置事务模板，模板bean被设置成abstract bean，保证不会被初始化-->
-	<bean id="serviceProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+
+	<!-- 配置事务模板，模板bean被设置成abstract bean，保证不会被初始化 -->
+	<bean id="serviceProxy"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
 		abstract="true">
 		<property name="transactionManager" ref="transactionManager"></property>
-		<!-- 设置事务属性-->
+		<!-- 设置事务属性 -->
 		<property name="transactionAttributes">
 			<props>
 				<prop key="*">PROPAGATION_REQUIRED</prop>
@@ -76,7 +86,7 @@
 		</property>
 	</bean>
 
-		<!-- 配置一个Hibernate通用的数据访问对象并且把Spring事务监控设定到DAO层 -->
+	<!-- 配置一个Hibernate通用的数据访问对象并且把Spring事务监控设定到DAO层 -->
 	<bean id="genericDAO" parent="serviceProxy">
 		<property name="target">
 			<bean class="com.aj.frame.processor.ws.util.TransactionPackDaoImpl">
